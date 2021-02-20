@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="1"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:text="xxx.xxx.xxx.xxx"
+            android:id="@+id/tv_ip"
+            android:gravity="center_vertical"
+            tools:ignore="HardcodedText" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connect"
+            android:layout_margin="1dp"
+            android:id="@+id/bt_connect"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disconnect"
+            android:layout_margin="1dp"
+            android:visibility="gone"
+            android:id="@+id/bt_disconnect"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:text="Bulb A"
+            android:gravity="center_vertical" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:text="On"
+            android:enabled="false"
+            android:id="@+id/bt_bulb_a_on"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:text="Off"
+            android:enabled="false"
+            android:id="@+id/bt_bulb_a_off"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:text="Bulb B"
+            android:gravity="center_vertical" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:text="On"
+            android:enabled="false"
+            android:id="@+id/bt_bulb_b_on"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:text="Off"
+            android:enabled="false"
+            android:id="@+id/bt_bulb_b_off"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+</LinearLayout>

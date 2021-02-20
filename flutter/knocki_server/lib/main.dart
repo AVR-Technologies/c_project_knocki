@@ -13,7 +13,7 @@ class MyHomePage extends StatefulWidget {                                       
 class _MyHomePageState extends State<MyHomePage> {                              //holds state of above widget
   bool              isConnected       = false;                                  //holds boolean telling if connected to tcp server or not
   Socket            socket;                                                     //create object for tcp client socket
-  String            host              = '192.168.4.1';                          //server ip
+  String            host              = '192.168.0.12';                          //server ip
   int               port              = 7777;                                   //server port
   AssetsAudioPlayer assetsAudioPlayer = new AssetsAudioPlayer();                //create object for audio player
 
@@ -49,15 +49,19 @@ class _MyHomePageState extends State<MyHomePage> {                              
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,                         //space between and around evenly
       children: <Widget>[
         Text('$host:$port', textAlign: TextAlign.center,),
-        FlatButton(
-          color: Colors.green[800],
-          textColor: Colors.white,
+        TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.green[800],
+            primary: Colors.white,
+          ),
           child: Text('Connect'),
           onPressed: isConnected ? null : connect,                              // if connected disable button or call connect() on click
         ),
-        FlatButton(
-          color: Colors.red[800],
-          textColor: Colors.white,
+        TextButton(
+          style: TextButton.styleFrom(
+            primary: Colors.white,
+            backgroundColor: Colors.red[800],
+          ),
           child: Text('Disconnect'),
           onPressed: !isConnected ? null : disconnect,                          // if disconnected disable button or call disconnect() on click
         )
@@ -73,15 +77,19 @@ class _MyHomePageState extends State<MyHomePage> {                              
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            FlatButton(
+            TextButton(
+              style: TextButton.styleFrom(
+                primary: Colors.green[800],
+              ),
               onPressed: () => send(onData),
               child: Text('On'),
-              textColor: Colors.green[800],
             ),
-            FlatButton(
+            TextButton(
+              style: TextButton.styleFrom(
+                primary: Colors.red[800]
+              ),
               onPressed: () => send(offData),
               child: Text('Off'),
-              textColor: Colors.red[800],
             )
           ],
         ),
@@ -115,10 +123,12 @@ class _MyHomePageState extends State<MyHomePage> {                              
   Widget fanSpeedButton({@required String titleText, @required Color buttonColor, @required String messageText}){
     return SizedBox(
       width: MediaQuery.of(context).size.width / 5 * 0.8,                       // (screen width/5)*80%
-      child: FlatButton(
+      child: TextButton(
         child: Text(titleText),
-        color: buttonColor,
-        textColor: Colors.white,
+        style: TextButton.styleFrom(
+          backgroundColor: buttonColor,
+          primary: Colors.white
+        ),
         onPressed: ()=> send(messageText),
       ),
     );
@@ -129,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {                              
       title: Text(title),
       content: Text(message),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           onPressed: stop,
           child: Text('Close'),
         ),
@@ -153,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {                              
 
   listenForIncomingData(){
     socket.listen((event) {                                                     //listen for incoming event
-      List<int> data = new List();                                              //create blank List<int>
+      List<int> data = [];                                              //create blank List<int>
       data.add(event[0]);                                                       //add first byte of event to data
       String message = utf8.decode(data);                                       //utf8 decode data array to string
       print(message);                                                           //print message for debugging
@@ -167,17 +177,15 @@ class _MyHomePageState extends State<MyHomePage> {                              
 
   mobileFound(){
     play();                                                                     //call play()
-    showDialog(context: context, child: alertDialogUi(title: 'Found', message: 'Close to stop music.'), barrierDismissible: false);
+    showDialog(context: context, builder:(context) => alertDialogUi(title: 'Found', message: 'Close to stop music.'), barrierDismissible: false);
   }
   knockOnTheDoor() {
     play();                                                                     //call play()
-    showDialog(context: context, child: alertDialogUi(title: 'Knock Knock!', message: 'Someone is on the door.'), barrierDismissible: false);
+    showDialog(context: context, builder:(context) => alertDialogUi(title: 'Knock Knock!', message: 'Someone is on the door.'), barrierDismissible: false);
   }
 
   play() {
-    assetsAudioPlayer.open(AssetsAudio(
-      asset: 'iphone_6_original.mp3',
-      folder: 'assets/audios/',));                                                //play audio
+    assetsAudioPlayer.open(Audio('assets/audios/iphone_6_original.mp3',),);                                                //play audio
     Torch.turnOn();                                                             //turn on torch
   }
   stop() {

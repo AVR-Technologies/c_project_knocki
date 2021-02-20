@@ -8,8 +8,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.2
-  assets_audio_player: 1.0.1
+  cupertino_icons: ^1.0.2
+  assets_audio_player: 2.0.13
   torch: 0.1.1
 
 dev_dependencies:
