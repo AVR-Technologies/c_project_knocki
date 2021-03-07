@@ -57,24 +57,16 @@
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:text="On"
-            android:enabled="false"
-            android:id="@+id/bt_bulb_a_on"
-            tools:ignore="HardcodedText" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
-            android:text="Off"
+            android:text="Toggle"
             android:enabled="false"
-            android:id="@+id/bt_bulb_a_off"
+            android:id="@+id/bt_bulb_a_toggle"
             tools:ignore="HardcodedText" />
     </LinearLayout>
 
@@ -95,24 +87,16 @@
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:text="On"
-            android:enabled="false"
-            android:id="@+id/bt_bulb_b_on"
-            tools:ignore="HardcodedText" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
-            android:text="Off"
+            android:text="Toggle"
             android:enabled="false"
-            android:id="@+id/bt_bulb_b_off"
+            android:id="@+id/bt_bulb_b_toggle"
             tools:ignore="HardcodedText" />
     </LinearLayout>
 </LinearLayout>

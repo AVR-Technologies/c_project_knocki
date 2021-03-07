@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class Client {
     Client(){
@@ -17,6 +18,7 @@ public class Client {
     Thread thread;
     private BufferedReader input;
     private PrintWriter output;
+
     void connect(String ip, int port, OnMessage _onMessage) {
         onMessage = _onMessage;
         try {
@@ -25,6 +27,8 @@ public class Client {
             output = new PrintWriter(socket.getOutputStream());
             thread = new Thread(read);
             thread.start();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,6 +39,8 @@ public class Client {
             if(input!=null) input.close();
             if(output!=null) output.close();
             thread = null;
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,14 +55,13 @@ public class Client {
         return socket != null && socket.isConnected();
     }
     private final Runnable read = () -> {
-        do {
+        while (socket.isConnected())
             try {
                 final String message = input.readLine();
-                if(message != null) onMessage.received(message);
+                if (message != null) onMessage.received(message);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } while (socket.isConnected());
     };
     public interface OnMessage {
         void received(String message);

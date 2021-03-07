@@ -10,10 +10,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 public class MainActivity extends AppCompatActivity {
     TextView ipTextView;
     Button connectButton, disConnectButton;
-    Button onBulbAButton, offBulbAButton;
-    Button onBulbBButton, offBulbBButton;
-    String ip = "192.168.0.13";
+    Button toggleBulbAButton;
+    Button toggleBulbBButton;
+
+    String ip = "192.168.4.1";
     int port = 7777;
+
     Client client = new Client();
     MediaPlayer mediaPlayer;
     @Override
@@ -23,46 +25,51 @@ public class MainActivity extends AppCompatActivity {
         ipTextView = findViewById(R.id.tv_ip);
         connectButton = findViewById(R.id.bt_connect);
         disConnectButton = findViewById(R.id.bt_disconnect);
-        onBulbAButton = findViewById(R.id.bt_bulb_a_on);
-        offBulbAButton = findViewById(R.id.bt_bulb_a_off);
-        onBulbBButton = findViewById(R.id.bt_bulb_b_on);
-        offBulbBButton = findViewById(R.id.bt_bulb_b_off);
+        toggleBulbAButton = findViewById(R.id.bt_bulb_a_toggle);
+        toggleBulbBButton = findViewById(R.id.bt_bulb_b_toggle);
 
         ipTextView.setText(ip);
         connectButton.setOnClickListener(v -> {
             client.connect(ip, port, response -> {
-                if(response.equals("p") || response.equals("k")){
-                    String title  = response.equals("p") ?  "Found" : response.equals("k") ?  "Knock knock" :   "";
-                    String message = response.equals("p") ?  "Close to stop music." : response.equals("k") ?  "Someone on the door." :   "";
+//                if(response.equals("p") || response.equals("k")){
+//                    String title  = response.equals("p") ?  "Found" : "Knock knock";
+//                    String message = response.equals("p") ?  "Close to stop music." : "Someone on the door.";
+//                    startAudio();
+//                    runOnUiThread(() -> new MaterialAlertDialogBuilder(this)
+//                            .setTitle(title)
+//                            .setMessage(message)
+//                            .setPositiveButton("CLOSE", (d, which) ->{})
+//                            .setOnDismissListener((d)-> stopAudio())
+//                            .show());
+//                }
+                if(response.equals("p")){
                     startAudio();
-                    runOnUiThread(() -> new MaterialAlertDialogBuilder(this)
-                            .setTitle(title)
-                            .setMessage(message)
-                            .setPositiveButton("CLOSE", (d, which) ->{})
-                            .setOnDismissListener((d)-> stopAudio())
-                            .show());
+                    runOnUiThread(() -> {
+                        new MaterialAlertDialogBuilder(this)
+                                .setTitle("Found")
+                                .setMessage("Close to stop music.")
+                                .setPositiveButton("CLOSE", (d, which) -> {
+                                })
+                                .setOnDismissListener((d) -> stopAudio())
+                                .show();
+                    });
                 }
             });
             connectButton.setVisibility(View.GONE);
             disConnectButton.setVisibility(View.VISIBLE);
-            onBulbAButton.setEnabled(true);
-            offBulbAButton.setEnabled(true);
-            onBulbBButton.setEnabled(true);
-            offBulbBButton.setEnabled(true);
+
+            toggleBulbAButton.setEnabled(true);
+            toggleBulbBButton.setEnabled(true);
         });
         disConnectButton.setOnClickListener(v ->{
             client.close();
             connectButton.setVisibility(View.VISIBLE);
             disConnectButton.setVisibility(View.GONE);
-            onBulbAButton.setEnabled(false);
-            offBulbAButton.setEnabled(false);
-            onBulbBButton.setEnabled(false);
-            offBulbBButton.setEnabled(false);
+            toggleBulbAButton.setEnabled(false);
+            toggleBulbBButton.setEnabled(false);
         });
-        onBulbAButton.setOnClickListener(v -> client.write("A"));
-        offBulbAButton.setOnClickListener(v -> client.write("a"));
-        onBulbBButton.setOnClickListener(v -> client.write("B"));
-        offBulbBButton.setOnClickListener(v -> client.write("b"));
+        toggleBulbAButton.setOnClickListener(v -> client.write("a"));
+        toggleBulbBButton.setOnClickListener(v -> client.write("b"));
     }
     void startAudio(){
         mediaPlayer = MediaPlayer.create(this, R.raw.iphone_6_original);
